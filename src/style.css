@@ -50,6 +50,7 @@ header, footer {
     background-color: var(--forest-green-crayola);
     color: white;
 }
+
 footer {
     font-size: 16px;
 }
@@ -63,8 +64,56 @@ footer {
 
 .side-menu {
     background-color: var(--dark-olive-green);
+    color: white;
+    display: flex;
+    padding: 1em;
+    position: relative;
+}
+
+.project {
+    cursor: pointer;
 }
 
 .body {
+    background-color: white;
+    position: relative;
+}
+
+
+.add-project-button {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
     background-color: var(--emerald);
+    border-color: var(--emerald);
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.add-todo-button {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: var(--emerald);
+    border-color: var(--emerald);
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    font-size: 32px;
+    cursor: pointer;
 }
