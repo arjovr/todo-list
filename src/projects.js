@@ -4,8 +4,22 @@ function initProjects(eventManager) {
     const projects = [
         newProject('default'),
     ];
+
+    eventManager.on('remove-project-ask', (name)=> {
+        const idx = projects.findIndex((x) => {
+            return x.name == name;
+        });
+        projects.splice(idx, 1);
+        if (idx >= 0) {
+            eventManager.emit('remove-project', name);
+        }
+    });
     
     function push(project) {
+        if (project.name == '') {
+            eventManager.emit('invalid-project', `The project name can't be empty`);
+            return;
+        }
         const found = projects.find(x => {
             return x.name == project.name;
         });

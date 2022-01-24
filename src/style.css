@@ -73,7 +73,12 @@ footer {
 
 .project {
     cursor: pointer;
+    display: flex;
     margin-bottom: 0.5em;
+}
+
+.project-name {
+    width: 100%;
 }
 
 .body {
@@ -120,7 +125,7 @@ footer {
     cursor: pointer;
 }
 
-.new-project-form > button {
+.new-project-form > button, .project > button.remove-project-btn {
     background-color: var(--emerald);
     border: var(--emerald) 0px solid;
     border-radius: 1em;
