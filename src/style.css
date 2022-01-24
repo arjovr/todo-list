@@ -66,12 +66,14 @@ footer {
     background-color: var(--dark-olive-green);
     color: white;
     display: flex;
+    flex-direction: column;
     padding: 1em;
     position: relative;
 }
 
 .project {
     cursor: pointer;
+    margin-bottom: 0.5em;
 }
 
 .body {
@@ -116,4 +118,23 @@ footer {
     border-style: solid;
     font-size: 32px;
     cursor: pointer;
+}
+
+.new-project-form > button {
+    background-color: var(--emerald);
+    border: var(--emerald) 0px solid;
+    border-radius: 1em;
+    height: 2em;
+    width: 2em;
+    cursor: pointer;
+}
+
+.new-project-form > input  {
+    height: 2em;
+    width: 70%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-radius: 1em;
+    border: white 0px solid;
+    padding: 0.5em;
 }

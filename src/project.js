@@ -1,6 +1,8 @@
-function newProject(todos = []) {
+function newProject(name, todos = []) {
+    let _todos = todos;
     return {
-        todos,
+        name,
+        todos: _todos,
     }
 }
 
