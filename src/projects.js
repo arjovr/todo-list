@@ -1,9 +1,15 @@
 import { newProject } from "./project";
+import {newTodo} from './todo';
 
 function initProjects(eventManager) {
     const projects = [
-        newProject('default'),
+        newProject('default', [newTodo({title: 'mmm', dueDate:'2021-01-01'})]),
     ];
+
+    eventManager.on('new-todo', (project, todo) => {
+        project.addTodo(todo);
+        eventManager.emit('new-todo-added', todo);
+    });
 
     eventManager.on('remove-project-ask', (name)=> {
         const idx = projects.findIndex((x) => {

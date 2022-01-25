@@ -4,7 +4,7 @@ function init(eventManager, projects) {
     const addBtn = document.querySelector('.add-project-button');
     
     addBtn.addEventListener('click', ()=> {
-        form(eventManager);
+        form();
         addBtn.style.display = 'none';    
     });
 
@@ -37,6 +37,10 @@ function init(eventManager, projects) {
                 eventManager.emit('remove-project-ask', project.name);
             });
         }
+        p.addEventListener('click', ()=> {
+            // elegimos un projecto, tengo que mostrar sus todos
+            eventManager.emit('project-selected', project);
+        });
     }
     
     function form() {
