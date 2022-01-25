@@ -2,9 +2,12 @@ import { newProject } from "./project";
 import {newTodo} from './todo';
 
 function initProjects(eventManager) {
-    const projects = [
-        newProject('default', [newTodo({title: 'mmm', dueDate:'2021-01-01'})]),
-    ];
+    let projects = JSON.parse(window.localStorage.getItem('projects'));
+    if (!projects) {
+        projects = [
+            newProject('default', [newTodo({title: 'mmm', dueDate:'2021-01-01'})]),
+        ];
+    }
 
     eventManager.on('new-todo', (project, todo) => {
         project.addTodo(todo);
@@ -22,7 +25,6 @@ function initProjects(eventManager) {
     });
 
     function save(project) {
-        console.log(project);
         if (project.name == '') {
             eventManager.emit('invalid-project', `The project name can't be empty`);
             return;
@@ -32,7 +34,7 @@ function initProjects(eventManager) {
         });
 
         const foundByName = projects.find(x => {
-            return x.name == project.name;
+            return project != x && x.name == project.name ;
         });
         if (foundByName) {
             eventManager.emit('invalid-project', `There is a project with this name "${project.name}"`);
@@ -41,15 +43,21 @@ function initProjects(eventManager) {
 
         if (!found) {
             projects.push(project);
+            save2localStorage();
             eventManager.emit('new-project-added', project);
             return;
         }
+        save2localStorage();
         eventManager.emit('new-project-edited', project);
 
     }
     
     function get() {
         return projects;
+    }
+
+    function save2localStorage() {
+        window.localStorage.setItem('projects', JSON.stringify(projects));
     }
 
     return {

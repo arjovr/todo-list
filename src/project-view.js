@@ -19,6 +19,7 @@ function init(eventManager, projects) {
         sideMenu.append(container);
     }
 
+    // draw the project item in the given container.
     function draw(container, project) {
         const p = document.createElement('div');
         p.classList.add('project');
@@ -56,9 +57,12 @@ function init(eventManager, projects) {
         });
     }
     
+    // draws the form in the given container.
     function drawForm(container, project) {
         container.innerHTML = '';
+
         const clonedProject = Object.assign({}, project);
+        
         const projectElem = document.createElement('div');
         console.log(project);
         projectElem.innerHTML = `
