@@ -11,13 +11,13 @@ function initProjects(eventManager) {
         eventManager.emit('new-todo-added', todo);
     });
 
-    eventManager.on('remove-project-ask', (name)=> {
+    eventManager.on('remove-project-ask', (project)=> {
         const idx = projects.findIndex((x) => {
-            return x.name == name;
+            return x == project;
         });
         projects.splice(idx, 1);
         if (idx >= 0) {
-            eventManager.emit('remove-project', name);
+            eventManager.emit('remove-project', project);
         }
     });
 
@@ -30,6 +30,15 @@ function initProjects(eventManager) {
         const found = projects.find(x => {
             return x == project;
         });
+
+        const foundByName = projects.find(x => {
+            return x.name == project.name;
+        });
+        if (foundByName) {
+            eventManager.emit('invalid-project', `There is a project with this name "${project.name}"`);
+            return;
+        }
+
         if (!found) {
             projects.push(project);
             eventManager.emit('new-project-added', project);
@@ -39,28 +48,11 @@ function initProjects(eventManager) {
 
     }
     
-    function push(project) {
-        if (project.name == '') {
-            eventManager.emit('invalid-project', `The project name can't be empty`);
-            return;
-        }
-        const found = projects.find(x => {
-            return x.name == project.name;
-        });
-        if (found) {
-            eventManager.emit('invalid-project', `There is a project with this name "${project.name}"`);
-            return;
-        }
-        projects.push(project);
-        eventManager.emit('new-project-added', project);
-    }
-
     function get() {
         return projects;
     }
 
     return {
-        push,
         get,
         save
     }

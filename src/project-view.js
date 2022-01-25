@@ -5,17 +5,21 @@ function init(eventManager, projects) {
     const addBtn = document.querySelector('.add-project-button');
     
     addBtn.addEventListener('click', ()=> {
-        form(sideMenu, newProject());
+        const container = document.createElement('div');
+        drawForm(container, newProject(''));
         addBtn.style.display = 'none';    
+        sideMenu.append(container);
     });
 
     const sideMenu = document.querySelector('.side-menu');
 
     for (const project of projects.get()) {
-        add(project);
+        const container = document.createElement('div');
+        draw(container, project);
+        sideMenu.append(container);
     }
 
-    function add(project, oldElem) {
+    function draw(container, project) {
         const p = document.createElement('div');
         p.classList.add('project');
         p.dataset.projectName = project.name;
@@ -27,27 +31,23 @@ function init(eventManager, projects) {
             p.innerHTML +=  `<button class="edit-project-btn"><i class="fas fa-edit"></i></button>`;
             p.innerHTML +=  `<button class="remove-project-btn"><i class="fas fa-trash"></i></button>`;
         }
-        if (oldElem) {
-            oldElem.parentNode.replaceChild(p, oldElem);
-        } else {
-            sideMenu.append(p);
-        }
+        container.append(p);
         const removeBtn = p.querySelector('.remove-project-btn')
         if (removeBtn) {
             removeBtn.addEventListener('click', ()=> {
-                eventManager.on('remove-project', (name)=> {
-                    if (project.name == name) {
+                eventManager.on('remove-project', (prj)=> {
+                    if (project == prj) {
                         p.remove();
                     }
                 });
-                eventManager.emit('remove-project-ask', project.name);
+                eventManager.emit('remove-project-ask', project);
             });
         }
         const editBtn = p.querySelector('.edit-project-btn');
         if (editBtn) {
             editBtn.addEventListener('click', () => {
                 p.innerHTML = '';
-                form(p, project);
+                drawForm(container, project);
             });
         }
         p.addEventListener('click', ()=> {
@@ -56,8 +56,11 @@ function init(eventManager, projects) {
         });
     }
     
-    function form(container, project) {
+    function drawForm(container, project) {
+        container.innerHTML = '';
+        const clonedProject = Object.assign({}, project);
         const projectElem = document.createElement('div');
+        console.log(project);
         projectElem.innerHTML = `
             <div class="new-project-form">
                 <input type="text" class="name-project-input" value="${project.name}">
@@ -69,12 +72,16 @@ function init(eventManager, projects) {
         const btn = projectElem.querySelector('.save-project-btn');
         const cancelBtn = projectElem.querySelector('.cancel-project-btn');
         const input = projectElem.querySelector('.name-project-input');
+        input.addEventListener('change', (e) => {
+            project.name = input.value;
+        })
         const removeForm = () => {
-            projectElem.remove();
+            project = Object(project, clonedProject);
+            container.innerHTML = '';
             addBtn.style.display = 'block';
             eventManager.off('invalid-project', invalidHandler);
             eventManager.off('new-project-added', validHandler);
-            eventManager.off('new-project-edited', editedHandler);
+            eventManager.off('new-project-edited', validHandler);
         }
         const invalidHandler = (msg)=> {
             alert(msg);
@@ -82,19 +89,20 @@ function init(eventManager, projects) {
         eventManager.on('invalid-project', invalidHandler);
         const validHandler = (p) => {
             removeForm();
-            add(p);
+            draw(container, p);
         };
-        const editedHandler = (p) => {
-            console.log('aaaaaaaaaaaaaaa', p)
+        const cancelHandler = () => {
             removeForm();
-            add(p, projectElem);
+            if (clonedProject.name !== '') {
+                draw(container, clonedProject);
+            }
         }
         eventManager.on('new-project-added', validHandler);
-        eventManager.on('new-project-edited', editedHandler);
+        eventManager.on('new-project-edited', validHandler);
         btn.addEventListener('click', () => {
             eventManager.emit('edit-project', project);
         });
-        cancelBtn.addEventListener('click', removeForm);
+        cancelBtn.addEventListener('click', cancelHandler);
     }
     
     return {}

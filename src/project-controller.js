@@ -15,11 +15,6 @@ function init() {
     // me quedo con el primero (default)
     eventManager.emit('project-selected', projects.get()[0]);
 
-
-    eventManager.on('new-project', (name)=> {
-        projects.push(newProject(name));
-    }); 
-    
     eventManager.on('edit-project', (project)=> {
         projects.save(project);
     });
