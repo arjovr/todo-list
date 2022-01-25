@@ -5,9 +5,13 @@ function initProjects(eventManager) {
     let projects = JSON.parse(window.localStorage.getItem('projects'));
     if (!projects) {
         projects = [
-            newProject('default', [newTodo({title: 'mmm', dueDate:'2021-01-01'})]),
+            {name: 'default'},
         ];
     }
+
+    projects = projects.map((x) => {
+        return newProject(x.name, x.todos);
+    });
 
     eventManager.on('new-todo', (project, todo) => {
         project.addTodo(todo);
