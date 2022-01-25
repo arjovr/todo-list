@@ -11,6 +11,7 @@ function initProjects(eventManager) {
 
     eventManager.on('new-todo', (project, todo) => {
         project.addTodo(todo);
+        save2localStorage();
         eventManager.emit('new-todo-added', todo);
     });
 
@@ -20,6 +21,7 @@ function initProjects(eventManager) {
         });
         projects.splice(idx, 1);
         if (idx >= 0) {
+            save2localStorage();
             eventManager.emit('remove-project', project);
         }
     });
