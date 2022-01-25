@@ -20,6 +20,24 @@ function initProjects(eventManager) {
             eventManager.emit('remove-project', name);
         }
     });
+
+    function save(project) {
+        console.log(project);
+        if (project.name == '') {
+            eventManager.emit('invalid-project', `The project name can't be empty`);
+            return;
+        }
+        const found = projects.find(x => {
+            return x == project;
+        });
+        if (!found) {
+            projects.push(project);
+            eventManager.emit('new-project-added', project);
+            return;
+        }
+        eventManager.emit('new-project-edited', project);
+
+    }
     
     function push(project) {
         if (project.name == '') {
@@ -43,7 +61,8 @@ function initProjects(eventManager) {
 
     return {
         push,
-        get
+        get,
+        save
     }
     
 }

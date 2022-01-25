@@ -18,6 +18,10 @@ function init() {
 
     eventManager.on('new-project', (name)=> {
         projects.push(newProject(name));
+    }); 
+    
+    eventManager.on('edit-project', (project)=> {
+        projects.save(project);
     });
 
 }
