@@ -1,13 +1,13 @@
 import EventEmitter from "events";
-import { newProject } from "./project";
 import * as projectView from './project-view';
 import initProjects from './projects';
 import * as todoView from './todo-view';
+import * as database from './database';
 
 
 function init() {
     const eventManager = new EventEmitter();
-    const projects = initProjects(eventManager);
+    const projects = initProjects(database.get(), eventManager);
     
     projectView.init(eventManager, projects);
     todoView.init(eventManager);
@@ -21,12 +21,12 @@ function init() {
 
     eventManager.on('edit-todo', (project, todo)=> {
         project.saveTodo(todo);
-        projects.save2localStorage();
+        database.save(projects.get());
     });
 
     eventManager.on('remove-todo-ask', (project, todo)=> {
         project.remove(todo);
-        projects.save2localStorage();
+        database.save(projects.get());
         eventManager.emit('remove-todo', todo);
     });
 

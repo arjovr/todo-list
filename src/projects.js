@@ -1,21 +1,9 @@
-import { newProject } from "./project";
-import {newTodo} from './todo';
+import * as database from './database';
 
-function initProjects(eventManager) {
-    let projects = JSON.parse(window.localStorage.getItem('projects'));
-    if (!projects) {
-        projects = [
-            {name: 'default'},
-        ];
-    }
-
-    projects = projects.map((x) => {
-        return newProject(x.name, x.todos);
-    });
-
+function initProjects(projects, eventManager) {
     eventManager.on('new-todo', (project, todo) => {
         project.addTodo(todo);
-        save2localStorage();
+        database.save();
         eventManager.emit('new-todo-added', todo);
     });
 
@@ -25,7 +13,7 @@ function initProjects(eventManager) {
         });
         projects.splice(idx, 1);
         if (idx >= 0) {
-            save2localStorage();
+            database.save(projects);
             eventManager.emit('remove-project', project);
         }
     });
@@ -49,11 +37,11 @@ function initProjects(eventManager) {
 
         if (!found) {
             projects.push(project);
-            save2localStorage();
+            database.save(projects);
             eventManager.emit('new-project-added', project);
             return;
         }
-        save2localStorage();
+        database.save(projects);
         eventManager.emit('new-project-edited', project);
 
     }
@@ -62,14 +50,9 @@ function initProjects(eventManager) {
         return projects;
     }
 
-    function save2localStorage() {
-        window.localStorage.setItem('projects', JSON.stringify(projects));
-    }
-
     return {
         get,
         save,
-        save2localStorage,
     }
     
 }
