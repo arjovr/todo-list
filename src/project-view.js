@@ -64,7 +64,6 @@ function init(eventManager, projects) {
         const clonedProject = Object.assign({}, project);
         
         const projectElem = document.createElement('div');
-        console.log(project);
         projectElem.innerHTML = `
             <div class="new-project-form">
                 <input type="text" class="name-project-input" value="${project.name}">
@@ -98,7 +97,7 @@ function init(eventManager, projects) {
         const cancelHandler = () => {
             removeForm();
             if (clonedProject.name !== '') {
-                draw(container, clonedProject);
+                draw(container, project);
             }
         }
         eventManager.on('new-project-added', validHandler);
