@@ -1,36 +1,31 @@
-function newProject(name, todos = []) {
-    let _todos = todos;
+function newProject(name, _todos = []) {
+  const todos = _todos;
 
-    function addTodo(todo) {
-        _todos.push(todo);
-    }
+  function addTodo(todo) {
+    todos.push(todo);
+  }
 
-    function saveTodo(todo) {
-        const found = _todos.find((x)=> {
-            return x == todo;
-        });
-        if (!found) {
-            this.addTodo(todo);
-        }
+  function saveTodo(todo) {
+    const found = todos.find((x) => x === todo);
+    if (!found) {
+      this.addTodo(todo);
     }
+  }
 
-    function remove(todo) {
-        const idx = _todos.findIndex((x) => {
-            return x == todo;
-        });
-        if (idx >= 0) {
-            _todos.splice(idx, 1);
-        }
+  function remove(todo) {
+    const idx = todos.findIndex((x) => x === todo);
+    if (idx >= 0) {
+      todos.splice(idx, 1);
     }
+  }
 
-    return {
-        name,
-        todos: _todos,
-        addTodo,
-        saveTodo,
-        remove,
-    }
+  return {
+    name,
+    todos,
+    addTodo,
+    saveTodo,
+    remove,
+  };
 }
 
-
-export {newProject};
+export default newProject;
