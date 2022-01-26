@@ -126,7 +126,11 @@ footer {
     cursor: pointer;
 }
 
-.new-project-form > button, .project > button.remove-project-btn, .project button.edit-project-btn {
+.new-project-form > button,
+.project > button.remove-project-btn,
+.project button.edit-project-btn,
+.todo button.edit-todo-btn,
+.todo button.remove-todo-btn {
     background-color: var(--emerald);
     border: var(--emerald) 0px solid;
     border-radius: 1em;

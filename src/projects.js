@@ -68,7 +68,8 @@ function initProjects(eventManager) {
 
     return {
         get,
-        save
+        save,
+        save2localStorage,
     }
     
 }

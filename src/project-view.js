@@ -79,7 +79,6 @@ function init(eventManager, projects) {
             project.name = input.value;
         })
         const removeForm = () => {
-            project = Object(project, clonedProject);
             container.innerHTML = '';
             addBtn.style.display = 'block';
             eventManager.off('invalid-project', invalidHandler);
@@ -95,6 +94,7 @@ function init(eventManager, projects) {
             draw(container, p);
         };
         const cancelHandler = () => {
+            project = Object(project, clonedProject);
             removeForm();
             if (clonedProject.name !== '') {
                 draw(container, project);

@@ -19,6 +19,17 @@ function init() {
         projects.save(project);
     });
 
+    eventManager.on('edit-todo', (project, todo)=> {
+        project.saveTodo(todo);
+        projects.save2localStorage();
+    });
+
+    eventManager.on('remove-todo-ask', (project, todo)=> {
+        project.remove(todo);
+        projects.save2localStorage();
+        eventManager.emit('remove-todo', todo);
+    });
+
 }
 
 export {init};
