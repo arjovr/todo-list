@@ -25,6 +25,7 @@ function init(eventManager) {
             <div class="new-todo-form">
                 <input type="text" class="title-todo-input" value="${todo.title}">
                 <input type="date" class="duedate-todo-input" value="${todo.dueDate}">
+                <input type="number" class="priority-todo-input" value="${todo.priority}">
                 <button class="save-todo-btn"><i class="fas fa-check"></i></button>
                 <button class="cancel-todo-btn"><i class="fas fa-times"></i></button>
             </div>
@@ -35,12 +36,16 @@ function init(eventManager) {
         const cancelBtn = t.querySelector('.cancel-todo-btn');
         const input = t.querySelector('.title-todo-input');
         const dueDate = t.querySelector('.duedate-todo-input');
+        const priority = t.querySelector('.priority-todo-input');
 
         input.addEventListener('input', (e) => {
             todo.title = input.value;
         });
         dueDate.addEventListener('input', ()=> {
             todo.dueDate = dueDate.value;
+        });
+        priority.addEventListener('input', ()=> {
+            todo.priority = priority.value;
         });
 
         const removeForm = () => {
@@ -82,6 +87,7 @@ function init(eventManager) {
         t.textContent = todo.title;
         t.innerHTML = `
             <span class="todo-title">${todo.title}</span>
+            <span class="todo-dueDate">${todo.dueDate ? todo.dueDate : ''}</span>
             <button class="edit-todo-btn"><i class="fas fa-edit"></i></button>
             <button class="remove-todo-btn"><i class="fas fa-trash"></i></button>
         `;

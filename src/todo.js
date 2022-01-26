@@ -1,7 +1,8 @@
-function newTodo({title, dueDate} = {}) {
+function newTodo({title, dueDate, priority} = {}) {
     return {
         title,
-        dueDate
+        dueDate,
+        priority
     }
 }
 
