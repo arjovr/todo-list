@@ -141,7 +141,7 @@ footer {
 
 .new-project-form > input  {
     height: 2em;
-    width: 70%;
+    width: 100%;
     margin-top: 1em;
     margin-bottom: 1em;
     border-radius: 1em;
@@ -149,6 +149,11 @@ footer {
     padding: 0.5em;
 }
 
+.new-project-form {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
 
 .new-todo-form > input  {
     height: 2em;
