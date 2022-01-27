@@ -22,8 +22,10 @@ function init(eventManager, projects) {
             <span class="project-name">${project.name}</span>
         `;
     if (project.name !== 'default') {
-      p.innerHTML += '<button class="edit-project-btn"><i class="fas fa-edit"></i></button>';
-      p.innerHTML += '<button class="remove-project-btn"><i class="fas fa-trash"></i></button>';
+      p.innerHTML +=
+        '<button class="edit-project-btn"><i class="fas fa-edit"></i></button>';
+      p.innerHTML +=
+        '<button class="remove-project-btn"><i class="fas fa-trash"></i></button>';
     }
     container.append(p);
     const removeBtn = p.querySelector('.remove-project-btn');

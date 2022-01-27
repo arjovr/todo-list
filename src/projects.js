@@ -18,14 +18,19 @@ function initProjects(projects, eventManager) {
 
   function save(project) {
     if (project.name === '') {
-      eventManager.emit('invalid-project', 'The project name can\'t be empty');
+      eventManager.emit('invalid-project', "The project name can't be empty");
       return;
     }
     const found = projects.find((x) => x === project);
 
-    const foundByName = projects.find((x) => project !== x && x.name === project.name);
+    const foundByName = projects.find(
+      (x) => project !== x && x.name === project.name,
+    );
     if (foundByName) {
-      eventManager.emit('invalid-project', `There is a project with this name "${project.name}"`);
+      eventManager.emit(
+        'invalid-project',
+        `There is a project with this name "${project.name}"`,
+      );
       return;
     }
 
