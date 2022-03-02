@@ -4,9 +4,9 @@ import initProjects from './projects';
 import * as todoView from './todo-view';
 import * as database from './database';
 
-function init() {
+async function init() {
   const eventManager = new EventEmitter();
-  const projects = initProjects(database.get(), eventManager);
+  const projects = initProjects(await database.get(), eventManager);
 
   projectView.init(eventManager, projects);
   todoView.init(eventManager);
