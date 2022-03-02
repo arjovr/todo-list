@@ -120,4 +120,4 @@ function init(eventManager, projects) {
   return {};
 }
 
-export default init;
+export { init };

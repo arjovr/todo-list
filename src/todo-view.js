@@ -1,4 +1,5 @@
 import newTodo from './todo';
+import '@fortawesome/fontawesome-free/js/all.js'
 
 function init(eventManager) {
   let currentProject = null;
@@ -12,9 +13,8 @@ function init(eventManager) {
     t.textContent = todo.title;
     t.innerHTML = `
             <span class="todo-title">${todo.title}</span>
-            <span class="todo-dueDate">${
-              todo.dueDate ? todo.dueDate : ''
-            }</span>
+            <span class="todo-dueDate">${todo.dueDate ? todo.dueDate : ''
+      }</span>
             <button class="edit-todo-btn"><i class="fas fa-edit"></i></button>
             <button class="remove-todo-btn"><i class="fas fa-trash"></i></button>
         `;
@@ -137,4 +137,4 @@ function init(eventManager) {
   });
 }
 
-export default init;
+export { init };

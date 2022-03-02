@@ -30,4 +30,4 @@ function init() {
   });
 }
 
-export default init;
+export { init };
